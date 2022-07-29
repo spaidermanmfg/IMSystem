@@ -1,0 +1,8 @@
+{
+    "number":"房间号",
+    "name":"房间名称",
+    "info":"房间简介",
+    "user_identity":"房间创建者的唯一标识",
+    "created_at": 1,
+    "updated_at": 1,
+}

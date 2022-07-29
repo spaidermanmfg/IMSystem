@@ -1,0 +1,10 @@
+{
+    "account":"账号",
+    "password":"密码",
+    "nickname":"昵称",
+    "sex": 1,  
+    "email":"邮箱",
+    "avatar":"头像",
+    "created_at": 1, 
+    "updataed_at": 1 
+}

@@ -1,0 +1,7 @@
+{
+    "user_identity":"用户的唯一标识",
+    "room_identity":"房间的唯一标识",
+    "data":"发送的数据",
+    "created_at": 1,
+    "updated_at": 1
+}
