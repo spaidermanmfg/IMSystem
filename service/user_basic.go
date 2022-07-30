@@ -2,6 +2,7 @@ package service
 
 import (
 	"IMSystem/collection"
+	"IMSystem/define"
 	"IMSystem/tools"
 	"log"
 	"net/http"
@@ -96,8 +97,8 @@ func SendCode(c *gin.Context) {
 		})
 		return
 	}
-
-	err = tools.SendCode(email, "777777")
+	code := tools.GenerateRandCode()
+	err = tools.SendCode(email, code)
 	if err != nil {
 		log.Println("[ERROR]: ", err)
 		c.JSON(http.StatusOK, gin.H{
@@ -107,6 +108,13 @@ func SendCode(c *gin.Context) {
 		return
 	}
 
+	if err = collection.RDB.Set(define.RegisterPrefix+email, code, define.ExpireTime).Err(); err != nil {
+		c.JSON(http.StatusOK, gin.H{
+			"code":    -1,
+			"message": "验证码保存失败",
+		})
+		return
+	}
 	c.JSON(http.StatusOK, gin.H{
 		"code":    200,
 		"message": "验证码发送成功",

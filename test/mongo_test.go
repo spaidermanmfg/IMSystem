@@ -31,3 +31,29 @@ func TestFindOne(t *testing.T) {
 	}
 	fmt.Println("ub===>", ur)
 }
+
+func TestFind(t *testing.T) {
+	ctx, cancel := context.WithTimeout(context.Background(), 20*time.Second)
+	defer cancel()
+	client, err := mongo.Connect(ctx, options.Client().ApplyURI("mongodb://admin:123456@114.55.237.245:27017"))
+
+	if err != nil {
+		log.Println("连接到数据库失败", err)
+	}
+
+	db := client.Database("im")
+	ur := new(collection.UserRoom)
+	urs := make([]*collection.UserRoom, 0)
+	cursor, err := db.Collection(ur.CollectionName()).Find(context.Background(), bson.D{})
+	for cursor.Next(context.Background()) {
+		err := cursor.Decode(ur)
+		if err != nil {
+			log.Println("解析错误", err)
+			return
+		}
+		urs = append(urs, ur)
+	}
+	for _, v := range urs {
+		fmt.Println("UserRoom====>", v)
+	}
+}

@@ -39,7 +39,7 @@ func GetUserBasicByIdentity(identity string) (*UserBasic, error) {
 	err := Mongo.Collection(UserBasic{}.CollectionName()).
 		FindOne(
 			context.Background(),
-			bson.D{{"_id", identity}}).
+			bson.D{{"identity", identity}}).
 		Decode(ub)
 	return ub, err
 }
@@ -49,4 +49,17 @@ func GetUserBasicByEmail(email string) (int64, error) {
 	num, err := Mongo.Collection(UserBasic{}.CollectionName()).
 		CountDocuments(context.Background(), bson.D{{"email", email}})
 	return num, err
+}
+
+func GetUserBasicByAccount(account string) (int64, error) {
+	num, err := Mongo.Collection(UserBasic{}.CollectionName()).
+		CountDocuments(context.Background(), bson.D{{"account", account}})
+	return num, err
+}
+
+//保存注册信息
+func InsertOneUserBasic(ub UserBasic) error {
+	_, err := Mongo.Collection(UserBasic{}.CollectionName()).
+		InsertOne(context.Background(), ub)
+	return err
 }

@@ -1,0 +1,7 @@
+{
+    "user_identity":"用户的唯一标识",
+    "room_identity":"房间的唯一标识",
+    "message_identity":"消息的唯一标识",
+    "created_at": 1,
+    "updated_at": 1
+}

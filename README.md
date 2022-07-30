@@ -11,16 +11,19 @@ This is This is an instant messaging system.
 * 用户模块
   - 密码登录
   - 发送验证码
+  - 用户注册
 * 邮箱注册
 * 用户详情
 * 通讯模块
   - 使用HTTP搭建WebSocket服务
   - 使用Gin框架搭建websocket服务
   - 发送、接受消息
+  - 保存消息
+  - 获取聊天记录
 * 一对一通讯
 * 多对多通讯
-* 消息列表
-* 聊天记录列表
+
+
 # 3. 初始化项目
 
 * 创建gomodule： `go mod init IMSystem`
@@ -44,6 +47,7 @@ This is This is an instant messaging system.
 * 安装mongodb-driver: `go get go.mongodb.org/mongo-driver/mongo `
 * 安装jwt包(用于申请token): `go get github.com/dgrijalva/jwt-go`
 * 安装email包： `go get github.com/jordan-wright/email`
+* 安装redis包(不同版本对应包不同)： `go get github.com/go-redis/redis/v9`
 
 
 # 4. 建库建表
