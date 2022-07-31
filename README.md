@@ -20,6 +20,8 @@ This is This is an instant messaging system.
   - 发送、接受消息
   - 保存消息
   - 获取聊天记录
+  - 添加好友
+  - 删除好友
 * 一对一通讯
 * 多对多通讯
 

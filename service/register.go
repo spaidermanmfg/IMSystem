@@ -24,25 +24,6 @@ func Register(c *gin.Context) {
 		return
 	}
 
-	//TODO:判断验证码是否正确
-	s, err := collection.RDB.Get(define.RegisterPrefix + email).Result()
-	if err != nil {
-		log.Println("[ERROR]: ", err)
-		c.JSON(http.StatusOK, gin.H{
-			"code":    -1,
-			"message": "验证码不正确",
-		})
-		return
-	}
-
-	if s != code {
-		c.JSON(http.StatusOK, gin.H{
-			"code":    -1,
-			"message": "验证码不正确",
-		})
-		return
-	}
-
 	//TODO:判断账号是否唯一
 	act, err := collection.GetUserBasicByAccount(account)
 	if err != nil {
@@ -58,6 +39,25 @@ func Register(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{
 			"code":    -1,
 			"message": "账号已经注册",
+		})
+		return
+	}
+
+	//TODO:判断验证码是否正确
+	s, err := collection.RDB.Get(define.RegisterPrefix + email).Result()
+	if err != nil {
+		log.Println("[ERROR]: ", err)
+		c.JSON(http.StatusOK, gin.H{
+			"code":    -1,
+			"message": "验证码不正确",
+		})
+		return
+	}
+
+	if s != code {
+		c.JSON(http.StatusOK, gin.H{
+			"code":    -1,
+			"message": "验证码不正确",
 		})
 		return
 	}

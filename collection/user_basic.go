@@ -18,6 +18,13 @@ type UserBasic struct {
 	Updated_At int32  `bson:updated_at`
 }
 
+type UserQueryResult struct {
+	Nickname string `json:nickname`
+	Sex      int32  `json:sex`
+	Email    string `json:email`
+	IsFriend bool   `json:isfrient` //是否是好友
+}
+
 func (UserBasic) CollectionName() string {
 	return "user_basic"
 }
@@ -40,6 +47,17 @@ func GetUserBasicByIdentity(identity string) (*UserBasic, error) {
 		FindOne(
 			context.Background(),
 			bson.D{{"identity", identity}}).
+		Decode(ub)
+	return ub, err
+}
+
+//select user details by account
+func GetUserBasicByAccounter(account string) (*UserBasic, error) {
+	ub := new(UserBasic)
+	err := Mongo.Collection(UserBasic{}.CollectionName()).
+		FindOne(
+			context.Background(),
+			bson.D{{"account", account}}).
 		Decode(ub)
 	return ub, err
 }
